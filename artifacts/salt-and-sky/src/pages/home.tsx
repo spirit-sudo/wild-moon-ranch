@@ -41,16 +41,16 @@ export default function Home() {
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const images = [
-    { src: "/deck-sunset.jpg", alt: "Sunset from the deck over the mountain layers", span: "md:row-span-2" },
-    { src: "/aerial-court.jpg", alt: "Aerial view of the property at golden hour", span: "" },
-    { src: "/deck-hottub.jpg", alt: "Cedar hot tub overlooking the mountain range", span: "md:row-span-2" },
-    { src: "/deck-side.jpg", alt: "Side deck at sunrise with mountain vista", span: "" },
-    { src: "/aerial-property.jpg", alt: "Full property aerial with sunset", span: "" },
-    { src: "/swing-sunset.jpg", alt: "Porch swing overlooking the layered mountains", span: "md:row-span-2" },
-    { src: "/hottub-sunset.jpg", alt: "Cedar soaking tub with sunset light", span: "" },
-    { src: "/evening-aerial.jpg", alt: "Twilight aerial over the lake and mountains", span: "md:row-span-2" },
-    { src: "/aerial-2.jpg", alt: "Bird's eye view of cabin and courts", span: "" },
+  const galleryImages = [
+    { src: "/deck-sunset.jpg", alt: "Sunset from the deck over the mountain layers" },
+    { src: "/aerial-court.jpg", alt: "Aerial view of the property at golden hour" },
+    { src: "/deck-hottub.jpg", alt: "Cedar hot tub overlooking the mountain range" },
+    { src: "/deck-side.jpg", alt: "Side deck at sunrise with mountain vista" },
+    { src: "/aerial-property.jpg", alt: "Full property aerial with sunset" },
+    { src: "/swing-sunset.jpg", alt: "Porch swing overlooking the layered mountains" },
+    { src: "/hottub-sunset.jpg", alt: "Cedar soaking tub with sunset light" },
+    { src: "/evening-aerial.jpg", alt: "Twilight aerial over the lake and mountains" },
+    { src: "/aerial-2.jpg", alt: "Bird's eye view of cabin and courts" },
   ];
 
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -75,101 +75,64 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative pt-24 min-h-[85vh] flex items-end">
-        <div className="absolute inset-0 pt-24">
-          <img
-            src="/deck-sunset.jpg"
-            alt="Salt & Sky deck at sunset"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+      {/* Hero — Full-bleed with text at bottom */}
+      <section className="relative min-h-screen flex items-end">
+        <div className="absolute inset-0">
+          <img src="/deck-sunset.jpg" alt="Salt & Sky deck at sunset" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
         </div>
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="relative z-10 px-6 md:px-12 pb-16 md:pb-24 max-w-6xl"
-        >
+        <motion.div initial="hidden" animate="visible" variants={stagger} className="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
           <motion.p variants={fadeUp} className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">
             15884 N Peak Road, Julian, California
           </motion.p>
-          <motion.h1 variants={fadeUp} className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] max-w-4xl mb-8">
+          <motion.h1 variants={fadeUp} className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] mb-8">
             The silence<br />you didn't know<br />you needed.
           </motion.h1>
           <motion.div variants={fadeUp}>
-            <button
-              onClick={scrollToBooking}
-              className="bg-foreground text-background hover:bg-foreground/80 transition-colors px-8 py-3.5 text-sm tracking-widest uppercase"
-            >
+            <button onClick={scrollToBooking} className="bg-foreground text-background hover:bg-foreground/80 transition-colors px-8 py-3.5 text-sm tracking-widest uppercase">
               Reserve Your Dates
             </button>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Tagline */}
-      <section className="py-24 md:py-32 px-6 md:px-12">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={stagger}
-          className="max-w-3xl mx-auto text-center"
-        >
+      {/* Tagline — text only */}
+      <section className="py-28 md:py-40 px-6 md:px-12">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={stagger} className="max-w-3xl mx-auto text-center">
           <motion.p variants={fadeUp} className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed">
             A private mountain compound at 4,200 feet elevation. Where the air is thin, the views are endless, and the only thing on your schedule is sunset.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* Masonry Photo Grid */}
-      <section className="px-4 md:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={stagger}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
-        >
-          {images.map((img, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              className={`relative overflow-hidden cursor-pointer group rounded-sm ${img.span}`}
-              onClick={() => setLightbox(i)}
-            >
-              <div className={`${img.span ? "aspect-[3/4]" : "aspect-[4/3]"} overflow-hidden`}>
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* Curated Photo Pair — asymmetric like StayOne */}
+      <section className="px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
+            onClick={() => setLightbox(0)}
+          >
+            <img src="/deck-sunset.jpg" alt="Sunset deck" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group"
+            onClick={() => setLightbox(6)}
+          >
+            <img src="/hottub-sunset.jpg" alt="Cedar hot tub" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </motion.div>
+        </div>
       </section>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
-        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
-          <button className="absolute top-6 right-6 text-white/60 hover:text-white text-sm tracking-widest uppercase">Close</button>
-          <button className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === 0 ? images.length - 1 : lightbox - 1); }}>
-            <ChevronLeft className="w-8 h-8" />
-          </button>
-          <img src={images[lightbox].src} alt={images[lightbox].alt} className="max-w-full max-h-[85vh] object-contain" onClick={(e) => e.stopPropagation()} />
-          <button className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === images.length - 1 ? 0 : lightbox + 1); }}>
-            <ChevronRight className="w-8 h-8" />
-          </button>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest">{lightbox + 1} / {images.length}</div>
-        </div>
-      )}
-
-      {/* The Property */}
-      <section className="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* Property Story — text + single image side by side */}
+      <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={stagger}>
             <motion.p variants={fadeUp} className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-6">The Property</motion.p>
@@ -191,15 +154,15 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="relative aspect-[4/5] overflow-hidden rounded-sm"
+            className="relative aspect-[3/4] overflow-hidden rounded-sm"
           >
-            <img src="/hottub-sunset.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover" />
+            <img src="/deck-hottub.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover" />
           </motion.div>
         </div>
       </section>
 
-      {/* Amenities */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* Amenities — text + icon grid, NO photos */}
+      <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-20 md:mb-24">
           <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">What you get</p>
           <h2 className="font-serif text-4xl md:text-5xl">Everything. Nothing extra.</h2>
@@ -228,37 +191,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Carousel */}
-      <section className="py-16 border-y border-border">
-        <div className="px-6 md:px-12 mb-10 flex justify-between items-end">
-          <div>
-            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-2">Gallery</p>
-            <h2 className="font-serif text-3xl md:text-4xl">See it for yourself</h2>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={scrollPrev} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button onClick={scrollNext} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-        <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
-          <div className="flex touch-pan-y">
-            {images.map((img, i) => (
-              <div key={i} className="flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-3 md:pl-4 first:pl-6 md:first:pl-12">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-sm group">
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Full-bleed single photo as visual punctuation */}
+      <section className="relative h-[60vh] md:h-[70vh]">
+        <img src="/evening-aerial.jpg" alt="Twilight aerial over the lake and mountains" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+          <div className="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
+          <div className="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 4,235 ft</div>
         </div>
       </section>
 
-      {/* Why Book Direct */}
-      <section className="py-24 md:py-32 px-6 md:px-12">
+      {/* Why Book Direct — text only with cost card */}
+      <section className="py-28 md:py-40 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
             <div>
@@ -309,24 +253,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Location */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* Location — text + single image */}
+      <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="relative aspect-[3/4] overflow-hidden rounded-sm order-2 md:order-1"
+            className="relative aspect-[4/3] overflow-hidden rounded-sm"
           >
-            <img src="/evening-aerial.jpg" alt="Julian CA evening aerial" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-8 left-8">
-              <div className="font-serif text-2xl text-white mb-1">Julian, California</div>
-              <div className="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 4,235 ft</div>
-            </div>
+            <img src="/aerial-court.jpg" alt="Aerial view of property at golden hour" className="w-full h-full object-cover" />
           </motion.div>
-          <div className="order-1 md:order-2">
+          <div>
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
             <h2 className="font-serif text-4xl md:text-5xl mb-8">Historic. Untamed. Yours for the weekend.</h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-10">
@@ -350,8 +289,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+      {/* Testimonials — text only */}
+      <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
           <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Guestbook</p>
           <h2 className="font-serif text-4xl md:text-5xl">What guests say</h2>
@@ -380,8 +319,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Carousel — horizontal drag, this is where ALL photos live */}
+      <section className="py-20 border-t border-border">
+        <div className="px-6 md:px-12 mb-10 flex justify-between items-end">
+          <div>
+            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-2">Gallery</p>
+            <h2 className="font-serif text-3xl md:text-4xl">See it for yourself</h2>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={scrollPrev} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={scrollNext} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+          <div className="flex touch-pan-y">
+            {galleryImages.map((img, i) => (
+              <div key={i} className="flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-3 md:pl-4 first:pl-6 md:first:pl-12">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-sm group">
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Booking */}
-      <section id="booking" className="py-24 md:py-32 px-6 md:px-12 border-t border-border">
+      <section id="booking" className="py-28 md:py-40 px-6 md:px-12 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Availability</p>
@@ -487,7 +455,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 md:py-32 px-6 md:px-12 border-t border-border">
+      <section className="py-28 md:py-40 px-6 md:px-12 border-t border-border">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">FAQ</p>
@@ -534,6 +502,21 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <button className="absolute top-6 right-6 text-white/60 hover:text-white text-sm tracking-widest uppercase">Close</button>
+          <button className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === 0 ? galleryImages.length - 1 : lightbox - 1); }}>
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+          <img src={galleryImages[lightbox].src} alt={galleryImages[lightbox].alt} className="max-w-full max-h-[85vh] object-contain" onClick={(e) => e.stopPropagation()} />
+          <button className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === galleryImages.length - 1 ? 0 : lightbox + 1); }}>
+            <ChevronRight className="w-8 h-8" />
+          </button>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest">{lightbox + 1} / {galleryImages.length}</div>
+        </div>
+      )}
     </div>
   );
 }
