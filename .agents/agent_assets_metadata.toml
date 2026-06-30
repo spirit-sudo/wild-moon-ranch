@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "gILrAvBgkL6E3Igp1qXvs"
@@ -36,3 +35,9 @@ id = "mYq-dVZ3XUi99sx4BTLux"
 uri = "file://artifacts/salt-and-sky/public/kitchen.png"
 type = "image"
 title = "Luxury mountain kitchen"
+
+[[outputs]]
+id = "bNZiShDc__bpQNlZdbbA_"
+uri = "file://attached_assets/screenshots/stayone_com.png"
+type = "image"
+title = "StayOne reference (loading spinner only)"
