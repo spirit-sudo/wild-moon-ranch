@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
@@ -14,44 +14,44 @@ import {
   Mountain,
   Dumbbell,
   Sun,
-  ArrowDown
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" as const } }
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" as const } }
 };
 
-const fadeIn = {
+const stagger = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.2, ease: "easeOut" as const } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
 };
 
 export default function Home() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [date, setDate] = useState<DateRange | undefined>();
   const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
 
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const scrollToBooking = () => {
+    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const images = [
+    { src: "/deck-sunset.jpg", alt: "Sunset from the deck over the mountain layers", span: "md:row-span-2" },
+    { src: "/aerial-court.jpg", alt: "Aerial view of the property at golden hour", span: "" },
+    { src: "/deck-hottub.jpg", alt: "Cedar hot tub overlooking the mountain range", span: "md:row-span-2" },
+    { src: "/deck-side.jpg", alt: "Side deck at sunrise with mountain vista", span: "" },
+    { src: "/aerial-property.jpg", alt: "Full property aerial with sunset", span: "" },
+    { src: "/swing-sunset.jpg", alt: "Porch swing overlooking the layered mountains", span: "md:row-span-2" },
+    { src: "/hottub-sunset.jpg", alt: "Cedar soaking tub with sunset light", span: "" },
+    { src: "/evening-aerial.jpg", alt: "Twilight aerial over the lake and mountains", span: "md:row-span-2" },
+    { src: "/aerial-2.jpg", alt: "Bird's eye view of cabin and courts", span: "" },
+  ];
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,122 +59,95 @@ export default function Home() {
     setTimeout(() => setFormState("success"), 1500);
   };
 
-  const images = [
-    { src: "/deck-sunset.jpg", alt: "Sunset from the deck over the mountain layers" },
-    { src: "/aerial-court.jpg", alt: "Aerial view of the property at golden hour" },
-    { src: "/deck-hottub.jpg", alt: "Cedar hot tub overlooking the mountain range" },
-    { src: "/deck-side.jpg", alt: "Side deck at sunrise with mountain vista" },
-    { src: "/aerial-property.jpg", alt: "Full property aerial with sunset" },
-    { src: "/swing-sunset.jpg", alt: "Porch swing overlooking the layered mountains" },
-    { src: "/hottub-sunset.jpg", alt: "Cedar soaking tub with sunset light" },
-    { src: "/evening-aerial.jpg", alt: "Twilight aerial over the lake and mountains" },
-    { src: "/aerial-2.jpg", alt: "Bird's eye view of cabin and courts" },
-  ];
-
-  const scrollToBooking = () => {
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className="bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
+    <div className="bg-background text-foreground min-h-screen overflow-x-hidden">
 
-      {/* Fixed Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-5 md:px-12 flex justify-between items-center mix-blend-difference text-white">
-        <div className="font-serif text-xl tracking-[0.2em] uppercase">Salt & Sky</div>
-        <button onClick={scrollToBooking} className="text-xs tracking-[0.25em] uppercase border border-white/20 px-5 py-2 hover:bg-white/10 transition-colors">
-          Book Now
-        </button>
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="font-serif text-xl tracking-wide">Salt & Sky</div>
+        <div className="flex items-center gap-4">
+          <button onClick={scrollToBooking} className="text-sm px-5 py-2 border border-foreground/20 hover:bg-foreground hover:text-background transition-colors">
+            Book Now
+          </button>
+        </div>
       </nav>
 
-      {/* Hero — Full-bleed cinematic with real deck sunset */}
-      <section ref={heroRef} className="relative h-screen w-full flex items-end justify-center overflow-hidden">
-        <motion.div
-          style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
-          className="absolute inset-0"
-        >
+      {/* Hero */}
+      <section className="relative pt-24 min-h-[85vh] flex items-end">
+        <div className="absolute inset-0 pt-24">
           <img
             src="/deck-sunset.jpg"
             alt="Salt & Sky deck at sunset"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        </motion.div>
-
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        </div>
         <motion.div
           initial="hidden"
           animate="visible"
-          variants={staggerContainer}
-          className="relative z-20 text-center px-4 max-w-5xl mx-auto pb-24 md:pb-32"
+          variants={stagger}
+          className="relative z-10 px-6 md:px-12 pb-16 md:pb-24 max-w-6xl"
         >
-          <motion.p variants={fadeInUp} className="text-white/60 tracking-[0.35em] uppercase text-xs mb-6">
+          <motion.p variants={fadeUp} className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">
             15884 N Peak Road, Julian, California
           </motion.p>
-          <motion.h1 variants={fadeInUp} className="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white leading-[0.95] mb-8">
+          <motion.h1 variants={fadeUp} className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] max-w-4xl mb-8">
             The silence<br />you didn't know<br />you needed.
           </motion.h1>
-          <motion.div variants={fadeInUp}>
+          <motion.div variants={fadeUp}>
             <button
               onClick={scrollToBooking}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-[0.2em] uppercase px-10 py-4 text-sm"
+              className="bg-foreground text-background hover:bg-foreground/80 transition-colors px-8 py-3.5 text-sm tracking-widest uppercase"
             >
               Reserve Your Dates
             </button>
           </motion.div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
-        >
-          <ArrowDown className="w-5 h-5 text-white/40 animate-bounce" />
-        </motion.div>
       </section>
 
-      {/* Tagline Band */}
-      <section className="py-20 md:py-28 px-6 md:px-12 text-center">
+      {/* Tagline */}
+      <section className="py-24 md:py-32 px-6 md:px-12">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-          className="max-w-3xl mx-auto"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+          className="max-w-3xl mx-auto text-center"
         >
-          <motion.p variants={fadeInUp} className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed">
+          <motion.p variants={fadeUp} className="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed">
             A private mountain compound at 4,200 feet elevation. Where the air is thin, the views are endless, and the only thing on your schedule is sunset.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* Full-width Photo Grid — Masonry-inspired */}
+      {/* Masonry Photo Grid */}
       <section className="px-4 md:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
+          viewport={{ once: true, margin: "-40px" }}
+          variants={stagger}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
         >
           {images.map((img, i) => (
             <motion.div
               key={i}
-              variants={fadeIn}
-              className={`relative overflow-hidden cursor-pointer group ${
-                i === 0 || i === 3 ? "md:row-span-2" : ""
-              }`}
+              variants={fadeUp}
+              className={`relative overflow-hidden cursor-pointer group rounded-sm ${img.span}`}
               onClick={() => setLightbox(i)}
             >
-              <div className={`${i === 0 || i === 3 ? "aspect-[3/4]" : "aspect-[4/3]"} overflow-hidden`}>
+              <div className={`${img.span ? "aspect-[3/4]" : "aspect-[4/3]"} overflow-hidden`}>
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
               </div>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
             </motion.div>
           ))}
         </motion.div>
@@ -182,69 +155,43 @@ export default function Home() {
 
       {/* Lightbox */}
       {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button className="absolute top-6 right-6 text-white/60 hover:text-white text-sm tracking-widest uppercase">
-            Close
+        <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <button className="absolute top-6 right-6 text-white/60 hover:text-white text-sm tracking-widest uppercase">Close</button>
+          <button className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === 0 ? images.length - 1 : lightbox - 1); }}>
+            <ChevronLeft className="w-8 h-8" />
           </button>
-          <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"
-            onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === 0 ? images.length - 1 : lightbox - 1); }}
-          >
-            <ArrowRight className="w-8 h-8 rotate-180" />
+          <img src={images[lightbox].src} alt={images[lightbox].alt} className="max-w-full max-h-[85vh] object-contain" onClick={(e) => e.stopPropagation()} />
+          <button className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === images.length - 1 ? 0 : lightbox + 1); }}>
+            <ChevronRight className="w-8 h-8" />
           </button>
-          <img
-            src={images[lightbox].src}
-            alt={images[lightbox].alt}
-            className="max-w-full max-h-[85vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <button
-            className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white"
-            onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === images.length - 1 ? 0 : lightbox + 1); }}
-          >
-            <ArrowRight className="w-8 h-8" />
-          </button>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest">
-            {lightbox + 1} / {images.length}
-          </div>
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest">{lightbox + 1} / {images.length}</div>
         </div>
       )}
 
-      {/* The Property / Story */}
+      {/* The Property */}
       <section className="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={staggerContainer}
-          >
-            <motion.p variants={fadeInUp} className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-6">
-              The Property
-            </motion.p>
-            <motion.h2 variants={fadeInUp} className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={stagger}>
+            <motion.p variants={fadeUp} className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-6">The Property</motion.p>
+            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight">
               Every window is a painting. Every sunset, a private show.
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Perched on N Peak Road with unobstructed views across the Laguna Mountains, this is not a rental — it is a destination. The kind of place where you forget to check your phone because the light on the mountain ridges is doing something you've never seen before.
+            <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Perched on N Peak Road with unobstructed views across the Laguna Mountains, this is not a rental — it is a destination. The kind of place where you forget to check your phone because the light on the ridges is doing something you've never seen before.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-muted-foreground text-lg leading-relaxed mb-10">
-              The deck stretches the full width of the house. Adirondack chairs face west. The cedar soaking tub steams at the edge of the hillside. At night, the sky is so dark you can trace the Milky Way with your finger.
+            <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed mb-10">
+              The deck stretches the full width of the house. Adirondack chairs face west. The cedar soaking tub steams at the edge of the hillside. At night, the sky is so dark you can trace the Milky Way.
             </motion.p>
-            <motion.div variants={fadeInUp} className="flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-primary">
-              <MapPin className="w-4 h-4" />
-              90 minutes from San Diego & downtown LA
+            <motion.div variants={fadeUp} className="flex items-center gap-3 text-sm tracking-wide text-foreground">
+              <MapPin className="w-4 h-4" /> 90 minutes from San Diego & downtown LA
             </motion.div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative aspect-[4/5] overflow-hidden"
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative aspect-[4/5] overflow-hidden rounded-sm"
           >
             <img src="/hottub-sunset.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover" />
           </motion.div>
@@ -254,10 +201,9 @@ export default function Home() {
       {/* Amenities */}
       <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-20 md:mb-24">
-          <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">What you get</p>
+          <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">What you get</p>
           <h2 className="font-serif text-4xl md:text-5xl">Everything. Nothing extra.</h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           {[
             { icon: Waves, title: "Cedar Soaking Tub", desc: "Hot tub carved from western red cedar, positioned at the property edge with full mountain panorama. Soak under stars you can actually see." },
@@ -271,11 +217,10 @@ export default function Home() {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="group"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: "easeOut" }}
             >
-              <item.icon className="w-7 h-7 text-primary mb-5" strokeWidth={1.5} />
+              <item.icon className="w-6 h-6 text-foreground mb-5" strokeWidth={1.5} />
               <h3 className="font-serif text-xl mb-3">{item.title}</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
             </motion.div>
@@ -283,20 +228,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Carousel — horizontal scroll */}
-      <section className="py-16 bg-card border-y border-border">
+      {/* Gallery Carousel */}
+      <section className="py-16 border-y border-border">
         <div className="px-6 md:px-12 mb-10 flex justify-between items-end">
           <div>
-            <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-2">Gallery</p>
+            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-2">Gallery</p>
             <h2 className="font-serif text-3xl md:text-4xl">See it for yourself</h2>
           </div>
-          <div className="text-xs tracking-[0.2em] uppercase text-muted-foreground hidden md:block">Drag to explore</div>
+          <div className="flex gap-2">
+            <button onClick={scrollPrev} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={scrollNext} className="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
         <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {images.map((img, i) => (
               <div key={i} className="flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-3 md:pl-4 first:pl-6 md:first:pl-12">
-                <div className="relative aspect-[4/3] overflow-hidden group">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-sm group">
                   <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
               </div>
@@ -310,7 +262,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
             <div>
-              <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">The smarter choice</p>
+              <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The smarter choice</p>
               <h2 className="font-serif text-4xl md:text-5xl mb-8">Skip the platform. Keep the money.</h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-10">
                 Booking directly means no Airbnb service fees, no VRBO markup, and no algorithmic pricing. You get the best rate, direct communication with us, and perks that don't exist on any listing platform.
@@ -323,13 +275,13 @@ export default function Home() {
                   "Priority rebooking for return guests",
                 ].map((perk, i) => (
                   <li key={i} className="flex items-start gap-4 text-sm">
-                    <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" strokeWidth={1.5} />
-                    <span className="text-foreground">{perk}</span>
+                    <Check className="w-5 h-5 text-foreground shrink-0 mt-0.5" strokeWidth={1.5} />
+                    <span>{perk}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="bg-card border border-border p-8 md:p-12">
+            <div className="bg-card border border-border p-8 md:p-12 rounded-sm">
               <h3 className="font-serif text-2xl mb-8 text-center">Cost Comparison</h3>
               <div className="space-y-5 mb-8">
                 <div className="flex justify-between items-center text-muted-foreground pb-4 border-b border-border">
@@ -340,11 +292,11 @@ export default function Home() {
                   <span className="text-sm">Cleaning fee</span>
                   <span className="font-medium">$150</span>
                 </div>
-                <div className="flex justify-between items-center text-destructive/60 pb-4 border-b border-border line-through">
+                <div className="flex justify-between items-center text-muted-foreground/50 pb-4 border-b border-border line-through">
                   <span className="text-sm">Airbnb service fee (15%)</span>
                   <span className="font-medium">$150</span>
                 </div>
-                <div className="flex justify-between items-center font-serif text-2xl text-primary pt-2">
+                <div className="flex justify-between items-center font-serif text-2xl pt-2">
                   <span>Your total</span>
                   <span>$1,000</span>
                 </div>
@@ -361,34 +313,34 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative aspect-[3/4] overflow-hidden order-2 md:order-1"
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative aspect-[3/4] overflow-hidden rounded-sm order-2 md:order-1"
           >
             <img src="/evening-aerial.jpg" alt="Julian CA evening aerial" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             <div className="absolute bottom-8 left-8">
               <div className="font-serif text-2xl text-white mb-1">Julian, California</div>
-              <div className="text-xs tracking-[0.3em] uppercase text-white/60">Elevation 4,235 ft</div>
+              <div className="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 4,235 ft</div>
             </div>
           </motion.div>
           <div className="order-1 md:order-2">
-            <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">The Location</p>
+            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
             <h2 className="font-serif text-4xl md:text-5xl mb-8">Historic. Untamed. Yours for the weekend.</h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-10">
               Julian is a former gold rush mountain town surrounded by Cleveland National Forest. It is one of the few places in Southern California with true four-season weather, dark skies, and a pace of life that forces you to slow down.
             </p>
             <div className="space-y-8">
               <div>
-                <h3 className="font-serif text-xl mb-2 text-primary">Explore</h3>
+                <h3 className="font-serif text-xl mb-2">Explore</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">
                   Hike Volcan Mountain for panoramic views to the Pacific. Paddle Cuyamaca Lake. Visit the gold mines. Or simply do nothing on the porch swing.
                 </p>
               </div>
               <div>
-                <h3 className="font-serif text-xl mb-2 text-primary">Eat & Drink</h3>
+                <h3 className="font-serif text-xl mb-2">Eat & Drink</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">
                   Julian apple pie at Mom's Pies, farm-to-table at Jeremy's on the Hill, hard cider at Julian Hard Cider, and natural wines at Menghini Winery.
                 </p>
@@ -401,7 +353,7 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
-          <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">Guestbook</p>
+          <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Guestbook</p>
           <h2 className="font-serif text-4xl md:text-5xl">What guests say</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -416,66 +368,60 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="p-8 md:p-10 border border-border bg-card/40 hover:bg-card transition-colors duration-500"
+              className="p-8 md:p-10 border border-border bg-card hover:shadow-sm transition-shadow duration-500 rounded-sm"
             >
               <div className="flex gap-1 mb-6">
-                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-4 h-4 text-primary fill-primary" />)}
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-4 h-4 text-foreground fill-foreground" />)}
               </div>
               <p className="font-serif text-lg leading-relaxed mb-8">&ldquo;{review.quote}&rdquo;</p>
-              <div className="text-xs tracking-[0.2em] uppercase text-muted-foreground">{review.author}</div>
+              <div className="text-xs tracking-[0.15em] uppercase text-muted-foreground">{review.author}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Booking Section */}
-      <section id="booking" className="py-24 md:py-32 px-6 md:px-12 bg-card border-t border-border">
+      {/* Booking */}
+      <section id="booking" className="py-24 md:py-32 px-6 md:px-12 border-t border-border">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
-            <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">Availability</p>
+            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Availability</p>
             <h2 className="font-serif text-4xl md:text-5xl mb-4">Secure your dates</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               We respond to all direct booking inquiries within two hours. Select your dates, tell us a bit about your trip, and we'll handle the rest.
             </p>
           </div>
-
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
             <div>
-              <div className="bg-background border border-border p-6 rounded-sm">
+              <div className="bg-card border border-border p-6 rounded-sm">
                 <Calendar
                   mode="range"
                   selected={date}
                   onSelect={setDate}
                   className="mx-auto"
                   classNames={{
-                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
-                    day_today: "bg-accent text-accent-foreground",
+                    day_selected: "bg-foreground text-background hover:bg-foreground hover:text-background",
+                    day_today: "bg-muted text-foreground",
                   }}
                 />
               </div>
               <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-                <div className="w-3 h-3 bg-primary rounded-full" />
+                <div className="w-3 h-3 bg-foreground rounded-full" />
                 <span>Selected dates</span>
-                <div className="w-3 h-3 bg-accent rounded-full ml-4" />
+                <div className="w-3 h-3 bg-muted rounded-full ml-4" />
                 <span>Today</span>
               </div>
             </div>
-
             <div>
               {formState === "success" ? (
-                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-background border border-border">
-                  <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-6">
-                    <Check className="w-7 h-7 text-primary" strokeWidth={1.5} />
+                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-card border border-border rounded-sm">
+                  <div className="w-14 h-14 rounded-full bg-foreground/10 flex items-center justify-center mb-6">
+                    <Check className="w-7 h-7 text-foreground" strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif text-3xl mb-4">Request received</h3>
                   <p className="text-muted-foreground max-w-sm">
                     Thank you. We will confirm your dates and send a secure payment link within two hours.
                   </p>
-                  <Button
-                    variant="outline"
-                    className="mt-8 rounded-none uppercase tracking-widest text-xs"
-                    onClick={() => setFormState("idle")}
-                  >
+                  <Button variant="outline" className="mt-8 rounded-none uppercase tracking-widest text-xs" onClick={() => setFormState("idle")}>
                     Send another inquiry
                   </Button>
                 </div>
@@ -483,22 +429,22 @@ export default function Home() {
                 <form onSubmit={handleBookingSubmit} className="space-y-6">
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">First Name</label>
-                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground/50" placeholder="Jane" />
+                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">First Name</label>
+                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="Jane" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Last Name</label>
-                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground/50" placeholder="Doe" />
+                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Last Name</label>
+                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="Doe" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Email</label>
-                    <input required type="email" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground/50" placeholder="jane@example.com" />
+                    <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Email</label>
+                    <input required type="email" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="jane@example.com" />
                   </div>
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Guests</label>
-                      <select required className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors text-foreground appearance-none">
+                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Guests</label>
+                      <select required className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground appearance-none">
                         <option value="1">1 Guest</option>
                         <option value="2">2 Guests</option>
                         <option value="3">3 Guests</option>
@@ -508,7 +454,7 @@ export default function Home() {
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Selected Dates</label>
+                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Selected Dates</label>
                       <div className="py-3 border-b border-border text-foreground text-sm">
                         {date?.from ? (
                           date.to ? (
@@ -523,12 +469,12 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Message</label>
-                    <textarea rows={3} className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-primary transition-colors text-foreground placeholder:text-muted-foreground/50 resize-none" placeholder="Tell us about your trip..." />
+                    <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Message</label>
+                    <textarea rows={3} className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40 resize-none" placeholder="Tell us about your trip..." />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none tracking-[0.2em] uppercase py-6 text-sm flex items-center justify-center gap-2"
+                    className="w-full bg-foreground text-background hover:bg-foreground/80 rounded-none tracking-[0.15em] uppercase py-6 text-sm flex items-center justify-center gap-2"
                     disabled={formState === "submitting" || !date?.from}
                   >
                     {formState === "submitting" ? "Sending..." : "Submit Inquiry"} <ArrowRight className="w-4 h-4" />
@@ -544,7 +490,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-12 border-t border-border">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-muted-foreground tracking-[0.25em] uppercase text-xs mb-4">FAQ</p>
+            <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">FAQ</p>
             <h2 className="font-serif text-4xl md:text-5xl">Common questions</h2>
           </div>
           <Accordion type="single" collapsible className="w-full">
@@ -557,7 +503,7 @@ export default function Home() {
               { q: "How many people can the property accommodate?", a: "The cabin sleeps up to 6 guests across 3 bedrooms. The pickleball court, deck, and hot tub comfortably handle groups of this size." },
             ].map((faq, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-border">
-                <AccordionTrigger className="text-left font-serif text-lg hover:text-primary transition-colors py-6">
+                <AccordionTrigger className="text-left font-serif text-lg hover:text-muted-foreground transition-colors py-6">
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
@@ -570,20 +516,20 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-background py-16 md:py-20 px-6 md:px-12 border-t border-border">
+      <footer className="bg-foreground text-background py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-16">
             <div>
-              <div className="font-serif text-2xl tracking-[0.2em] uppercase mb-2">Salt & Sky</div>
-              <p className="text-muted-foreground text-sm">15884 N Peak Road, Julian, CA 92036</p>
+              <div className="font-serif text-2xl tracking-wide mb-2">Salt & Sky</div>
+              <p className="text-background/50 text-sm">15884 N Peak Road, Julian, CA 92036</p>
             </div>
-            <div className="flex gap-8 text-xs tracking-[0.2em] uppercase text-muted-foreground">
-              <a href="#" className="hover:text-primary transition-colors">Instagram</a>
-              <a href="mailto:hello@saltandsky.com" className="hover:text-primary transition-colors">Email</a>
-              <button onClick={scrollToBooking} className="hover:text-primary transition-colors">Book</button>
+            <div className="flex gap-8 text-xs tracking-[0.15em] uppercase text-background/50">
+              <a href="#" className="hover:text-background transition-colors">Instagram</a>
+              <a href="mailto:hello@saltandsky.com" className="hover:text-background transition-colors">Email</a>
+              <button onClick={scrollToBooking} className="hover:text-background transition-colors">Book</button>
             </div>
           </div>
-          <div className="text-center text-[11px] text-muted-foreground uppercase tracking-[0.3em] opacity-40">
+          <div className="text-center text-[11px] text-background/30 uppercase tracking-[0.3em]">
             &copy; {new Date().getFullYear()} Salt & Sky. All rights reserved.
           </div>
         </div>
