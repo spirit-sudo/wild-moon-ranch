@@ -1,0 +1,38 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "gILrAvBgkL6E3Igp1qXvs"
+uri = "file://artifacts/salt-and-sky/public/hero-cabin.png"
+type = "image"
+title = "Cabin exterior at dusk"
+
+[[generated]]
+id = "CQ4_0yFL8iNMuvZ_1RRgc"
+uri = "file://artifacts/salt-and-sky/public/bedroom.png"
+type = "image"
+title = "Cabin bedroom with view"
+
+[[generated]]
+id = "nd8tdj3fV7cdtZGXBO8Zo"
+uri = "file://artifacts/salt-and-sky/public/hot-tub.png"
+type = "image"
+title = "Outdoor hot tub at night"
+
+[[generated]]
+id = "9TlDRbEEM5imUpLuz-X5X"
+uri = "file://artifacts/salt-and-sky/public/landscape.png"
+type = "image"
+title = "Morning fog landscape"
+
+[[generated]]
+id = "x39GGfO70CF7y4wJOKk0t"
+uri = "file://artifacts/salt-and-sky/public/fire-pit.png"
+type = "image"
+title = "Fire pit under stars"
+
+[[generated]]
+id = "mYq-dVZ3XUi99sx4BTLux"
+uri = "file://artifacts/salt-and-sky/public/kitchen.png"
+type = "image"
+title = "Luxury mountain kitchen"
