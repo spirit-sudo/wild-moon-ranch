@@ -47,7 +47,6 @@ export default function Home() {
     { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
-    { src: "/bathtub.jpg", alt: "Candlelit bathtub with open book and wildflowers" },
     { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
     { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
@@ -114,8 +113,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(5)}
+            className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm group"
           >
             <img src="/bathtub.jpg" alt="Candlelit bathtub with open book and wildflowers" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
