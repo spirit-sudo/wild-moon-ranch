@@ -85,7 +85,7 @@ export default function Home() {
         </div>
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
           <motion.p variants={fadeUp} className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">
-            15884 N Peak Road, Julian, California
+            Julian, California
           </motion.p>
           <motion.h1 variants={fadeUp} className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] mb-8">
             The silence<br />you didn't know<br />you needed.
@@ -141,7 +141,7 @@ export default function Home() {
               Every window is a painting. Every sunset, a private show.
             </motion.h2>
             <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Perched on N Peak Road with unobstructed views across the Laguna Mountains, this is not a rental — it is a destination. The kind of place where you forget to check your phone because the light on the ridges is doing something you've never seen before.
+              Perched in the Julian hills with unobstructed views across the Laguna Mountains, this is not a rental — it is a destination. The kind of place where you forget to check your phone because the light on the ridges is doing something you've never seen before.
             </motion.p>
             <motion.p variants={fadeUp} className="text-muted-foreground text-lg leading-relaxed mb-10">
               The deck stretches the full width of the house. Adirondack chairs face west. The cedar soaking tub steams at the edge of the hillside. At night, the sky is so dark you can trace the Milky Way.
@@ -490,7 +490,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-16">
             <div>
               <div className="font-serif text-2xl tracking-wide mb-2">Salt & Sky</div>
-              <p className="text-background/50 text-sm">15884 N Peak Road, Julian, CA 92036</p>
+              <p className="text-background/50 text-sm">Julian, California</p>
             </div>
             <div className="flex gap-8 text-xs tracking-[0.15em] uppercase text-background/50">
               <a href="#" className="hover:text-background transition-colors">Instagram</a>
