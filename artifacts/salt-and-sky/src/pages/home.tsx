@@ -147,7 +147,7 @@ export default function Home() {
               The deck stretches the full width of the house. Adirondack chairs face west. The cedar soaking tub steams at the edge of the hillside. At night, the sky is so dark you can trace the Milky Way.
             </motion.p>
             <motion.div variants={fadeUp} className="flex items-center gap-3 text-sm tracking-wide text-foreground">
-              <MapPin className="w-4 h-4" /> 90 minutes from San Diego & downtown LA
+              <MapPin className="w-4 h-4" /> 60 minutes from downtown San Diego
             </motion.div>
           </motion.div>
           <motion.div
@@ -175,7 +175,7 @@ export default function Home() {
             { icon: Sun, title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a gas BBQ. Every seat faces the ridgeline." },
             { icon: Flame, title: "Indoor Fireplace", desc: "Wood-burning hearth for the winter months. Stocked with oak. The cabin glows differently when it's lit." },
             { icon: Wifi, title: "Starlink WiFi", desc: "Rural-grade satellite internet at 100+ Mbps. Work remotely if you must. Stream flawlessly when you unwind." },
-            { icon: Mountain, title: "Dark Sky Views", desc: "Minimal light pollution. On clear nights the Milky Way is visible to the naked eye. Bring a tripod." },
+            { icon: Mountain, title: "Dark Sky Views", desc: "Julian is a certified International Dark Sky Community. Minimal light pollution means the Milky Way is visible to the naked eye on clear nights. Bring a tripod." },
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -198,7 +198,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
           <div className="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
-          <div className="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 4,235 ft</div>
+          <div className="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 5,440 ft</div>
         </div>
       </section>
 
