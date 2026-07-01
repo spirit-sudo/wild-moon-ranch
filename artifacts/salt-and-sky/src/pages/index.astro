@@ -1,0 +1,475 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import BookingWidget from "@/components/BookingWidget.jsx";
+
+const galleryImages = [
+  { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
+  { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
+  { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
+  { src: "/dining-room.jpg", alt: "Dining nook with antler chandelier and mountain views" },
+  { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
+  { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
+  { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
+  { src: "/swing-dawn.jpg", alt: "Wooden garden swing at dawn overlooking the layered mountains" },
+  { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
+  { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+  { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
+];
+
+const amenities = [
+  { icon: "waves", title: "Cedar Soaking Tub", desc: "Hot tub carved from western red cedar, positioned at the property edge with full mountain panorama. Soak under stars you can actually see." },
+  { icon: "dumbbell", title: "Pickleball Court", desc: "Full regulation court on the property. A volley at 4,200 feet with mountain views beats any indoor club." },
+  { icon: "sun", title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a gas BBQ. Every seat faces the ridgeline." },
+  { icon: "flame", title: "Indoor Fireplace", desc: "Wood-burning hearth for the winter months. Stocked with oak. The cabin glows differently when it's lit." },
+  { icon: "wifi", title: "Starlink WiFi", desc: "Rural-grade satellite internet at 100+ Mbps. Work remotely if you must. Stream flawlessly when you unwind." },
+  { icon: "mountain", title: "Dark Sky Views", desc: "Julian is a certified International Dark Sky Community. Minimal light pollution means the Milky Way is visible to the naked eye on clear nights. Bring a tripod." },
+];
+
+const testimonials = [
+  { quote: "The view from the deck at sunset is the most beautiful thing I have ever seen from a rental property. The cedar hot tub at night is transcendent.", author: "Sarah M., Los Angeles" },
+  { quote: "We played pickleball at golden hour, soaked in the tub under a sky full of stars, and did not open a laptop for three days. Exactly what we needed.", author: "David & Rachel, San Diego" },
+  { quote: "The property photographs don't prepare you for how dramatic the light is in person. Every hour the mountain ridges change color. You never want to go inside.", author: "James K., Phoenix" },
+];
+
+const faqs = [
+  { q: "Is the property pet-friendly?", a: "To preserve the condition of the home and the surrounding landscape, we do not allow pets. Service animals are welcome per ADA requirements." },
+  { q: "Do I need a 4x4 to get there?", a: "The road is paved all the way to the property. During winter storms (December through February), Caltrans may require chains or 4WD/AWD on the mountain highways." },
+  { q: "How fast is the internet?", a: "Starlink satellite internet averages 100–150 Mbps download. It's sufficient for video calls, streaming, and remote work — though we encourage you to disconnect." },
+  { q: "What is the cancellation policy?", a: "Full refund for cancellations within 48 hours of booking. 50% refund for cancellations at least 14 days before check-in. No refund within 14 days of arrival." },
+  { q: "Is there cell service?", a: "Cell reception is spotty in the mountains. Wi-Fi calling works perfectly through Starlink. We recommend downloading maps and music before arrival." },
+  { q: "How many people can the property accommodate?", a: "The cabin sleeps up to 6 guests across 3 bedrooms. The pickleball court, deck, and hot tub comfortably handle groups of this size." },
+];
+---
+
+<Layout title="Salt & Sky — Julian, California">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-background/80 backdrop-blur-md border-b border-border">
+    <div class="font-serif text-xl tracking-wide">Salt & Sky</div>
+    <div class="flex items-center gap-4">
+      <a href="#booking" class="text-sm px-5 py-2 border border-foreground/20 hover:bg-foreground hover:text-background transition-colors">
+        Book Now
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-end">
+    <div class="absolute inset-0">
+      <img src="/aerial-dusk.jpg" alt="Dusk aerial view over Cuyamaca Lake and the mountains" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+    </div>
+    <div class="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
+      <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4 animate-fade-up">Julian, California</p>
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] mb-8 animate-fade-up animate-fade-up-delay-1">
+        The silence<br />you didn't know<br />you needed.
+      </h1>
+      <div class="animate-fade-up animate-fade-up-delay-2">
+        <a href="#booking" class="inline-block bg-foreground text-background hover:bg-foreground/80 transition-colors px-8 py-3.5 text-sm tracking-widest uppercase">
+          Reserve Your Dates
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tagline -->
+  <section class="py-28 md:py-40 px-6 md:px-12">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <p class="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed">
+        A private mountain compound at 4,200 feet elevation. Where the air is thin, the views are endless, and the only thing on your schedule is sunset.
+      </p>
+    </div>
+  </section>
+
+  <!-- Curated Photo Pair -->
+  <section class="px-6 md:px-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+      <div class="reveal md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm group">
+        <img src="/bathtub.jpg" alt="Candlelit bathtub with open book and wildflowers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      </div>
+      <div class="reveal md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group" data-lightbox="1">
+        <img src="/side-deck.jpg" alt="Side deck at golden hour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Story -->
+  <section class="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div class="reveal">
+        <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-6">The Property</p>
+        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight">
+          Every window is a painting. Every sunset, a private show.
+        </h2>
+        <p class="text-muted-foreground text-lg leading-relaxed mb-6">
+          Perched in the Julian hills with unobstructed views across the Laguna Mountains, this is not a rental — it is a destination. The kind of place where you forget to check your phone because the light on the ridges is doing something you've never seen before.
+        </p>
+        <p class="text-muted-foreground text-lg leading-relaxed mb-10">
+          The deck stretches the full width of the house. Adirondack chairs face west. The cedar soaking tub steams at the edge of the hillside. At night, the sky is so dark you can trace the Milky Way.
+        </p>
+        <div class="flex items-center gap-3 text-sm tracking-wide text-foreground">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10-8 10S4 15.55 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          60 minutes from downtown San Diego
+        </div>
+      </div>
+      <div class="reveal relative aspect-[3/4] overflow-hidden rounded-sm">
+        <img src="/hottub-path.jpg" alt="Cedar hot tub from the stone path at golden hour" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-20 md:mb-24 reveal">
+      <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">What you get</p>
+      <h2 class="font-serif text-4xl md:text-5xl">Everything. Nothing extra.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+      {amenities.map((item, i) => (
+        <div class="reveal" style={`transition-delay: ${i * 0.1}s`}>
+          {item.icon === 'waves' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>}
+          {item.icon === 'dumbbell' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><path d="M17.596 9h.404a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-1.252a2 2 0 0 1-2-2v0H12v0a2 2 0 0 1-2 2H8.748a2 2 0 0 1-2-2v0H4v0a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h.404"/><path d="M21.166 8.81A2 2 0 0 0 22 7.5V5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v2.5a2 2 0 0 0 .834 1.81"/><path d="m2.84 15.19A2 2 0 0 0 2 16.5V19a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2v-2.5a2 2 0 0 0-.834-1.81"/></svg>}
+          {item.icon === 'sun' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>}
+          {item.icon === 'flame' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-2.258-2.55-2.857-2.55A2.5 2.5 0 0 0 7.5 11c0 1.5.5 2 1 3 .57 1.14 1.555 2.143 2 2.5"/><path d="M12.5 17.5a2.5 2.5 0 0 0 2.5-2.5c0-1.38-.5-2-1-3-1.072-2.143-2.258-2.55-2.857-2.55A2.5 2.5 0 0 0 11.5 14c0 1.5.5 2 1 3 .57 1.14 1.555 2.143 2 2.5"/><path d="M15 22H9c-1.5 0-2-1-2-2 0-1.5 1.5-2 2-2h6c1.5 0 2 1 2 2 0 1.5-1.5 2-2 2z"/></svg>}
+          {item.icon === 'wifi' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg>}
+          {item.icon === 'mountain' && <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-foreground mb-5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>}
+          <h3 class="font-serif text-xl mb-3">{item.title}</h3>
+          <p class="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Full-bleed single photo -->
+  <section class="relative h-[60vh] md:h-[70vh]">
+    <img src="/evening-lake.jpg" alt="Twilight aerial over the lake and mountains" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/20" />
+    <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+      <div class="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
+      <div class="text-xs tracking-[0.25em] uppercase text-white/60">Elevation 5,440 ft</div>
+    </div>
+  </section>
+
+  <!-- Why Book Direct -->
+  <section class="py-28 md:py-40 px-6 md:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+        <div class="reveal">
+          <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The smarter choice</p>
+          <h2 class="font-serif text-4xl md:text-5xl mb-8">Skip the platform. Keep the money.</h2>
+          <p class="text-muted-foreground text-lg leading-relaxed mb-10">
+            Booking directly means no Airbnb service fees, no VRBO markup, and no algorithmic pricing. You get the best rate, direct communication with us, and perks that don't exist on any listing platform.
+          </p>
+          <ul class="space-y-5">
+            <li class="flex items-start gap-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-foreground shrink-0 mt-0.5"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Save up to 18% by avoiding platform service fees</span>
+            </li>
+            <li class="flex items-start gap-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-foreground shrink-0 mt-0.5"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Direct host contact from inquiry to checkout</span>
+            </li>
+            <li class="flex items-start gap-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-foreground shrink-0 mt-0.5"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>No hidden fees or surprise charges</span>
+            </li>
+            <li class="flex items-start gap-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-foreground shrink-0 mt-0.5"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Priority rebooking for return guests</span>
+            </li>
+          </ul>
+        </div>
+        <div class="reveal bg-card border border-border p-8 md:p-12 rounded-sm">
+          <h3 class="font-serif text-2xl mb-8 text-center">Cost Comparison</h3>
+          <div class="space-y-5 mb-8">
+            <div class="flex justify-between items-center text-muted-foreground pb-4 border-b border-border">
+              <span class="text-sm">Base rate (2 nights)</span>
+              <span class="font-medium">$850</span>
+            </div>
+            <div class="flex justify-between items-center text-muted-foreground pb-4 border-b border-border">
+              <span class="text-sm">Cleaning fee</span>
+              <span class="font-medium">$150</span>
+            </div>
+            <div class="flex justify-between items-center text-muted-foreground/50 pb-4 border-b border-border line-through">
+              <span class="text-sm">Airbnb service fee (15%)</span>
+              <span class="font-medium">$150</span>
+            </div>
+            <div class="flex justify-between items-center font-serif text-2xl pt-2">
+              <span>Your total</span>
+              <span>$1,000</span>
+            </div>
+          </div>
+          <div class="text-center text-sm text-muted-foreground">
+            You keep $150 in your pocket by booking here.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div class="reveal relative aspect-[4/3] overflow-hidden rounded-sm">
+        <img src="/bedroom2.jpg" alt="Western-inspired bedroom with Navajo pillows and dark wood" class="w-full h-full object-cover" />
+      </div>
+      <div class="reveal">
+        <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
+        <h2 class="font-serif text-4xl md:text-5xl mb-8">Historic. Untamed. Yours for the weekend.</h2>
+        <p class="text-muted-foreground text-lg leading-relaxed mb-10">
+          Julian is a former gold rush mountain town surrounded by Cleveland National Forest. It is one of the few places in Southern California with true four-season weather, dark skies, and a pace of life that forces you to slow down.
+        </p>
+        <div class="space-y-8">
+          <div>
+            <h3 class="font-serif text-xl mb-2">Explore</h3>
+            <p class="text-muted-foreground leading-relaxed text-sm">
+              Hike Volcan Mountain for panoramic views to the Pacific. Paddle Cuyamaca Lake. Visit the gold mines. Or simply do nothing on the garden swing.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl mb-2">Eat & Drink</h3>
+            <p class="text-muted-foreground leading-relaxed text-sm">
+              Julian apple pie at Mom's Pies, farm-to-table at Jeremy's on the Hill, hard cider at Julian Hard Cider, and natural wines at Menghini Winery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
+    <div class="text-center mb-16 md:mb-20 reveal">
+      <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Guestbook</p>
+      <h2 class="font-serif text-4xl md:text-5xl">What guests say</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {testimonials.map((review, i) => (
+        <div class="reveal p-8 md:p-10 border border-border bg-card hover:shadow-sm transition-shadow duration-500 rounded-sm" style={`transition-delay: ${i * 0.15}s`}>
+          <div class="flex gap-1 mb-6">
+            {[1,2,3,4,5].map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ))}
+          </div>
+          <p class="font-serif text-lg leading-relaxed mb-8">&ldquo;{review.quote}&rdquo;</p>
+          <div class="text-xs tracking-[0.15em] uppercase text-muted-foreground">{review.author}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Gallery Carousel -->
+  <section class="py-20 border-t border-border">
+    <div class="px-6 md:px-12 mb-10 flex justify-between items-end">
+      <div>
+        <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-2">Gallery</p>
+        <h2 class="font-serif text-3xl md:text-4xl">See it for yourself</h2>
+      </div>
+      <div class="flex gap-2">
+        <button id="galleryPrev" class="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button id="galleryNext" class="w-10 h-10 border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="galleryScroll" class="gallery-scroll flex overflow-x-auto touch-pan-y">
+      {galleryImages.map((img) => (
+        <div class="gallery-item flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-3 md:pl-4 first:pl-6 md:first:pl-12">
+          <div class="relative aspect-[4/3] overflow-hidden rounded-sm group">
+            <img src={img.src} alt={img.alt} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="booking" class="py-28 md:py-40 px-6 md:px-12 border-t border-border">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16 md:mb-20 reveal">
+        <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Availability</p>
+        <h2 class="font-serif text-4xl md:text-5xl mb-4">Secure your dates</h2>
+        <p class="text-muted-foreground max-w-xl mx-auto">
+          Check real-time availability and book directly. No service fees, no third-party markups.
+        </p>
+      </div>
+      <div class="bg-card border border-border p-6 md:p-10 rounded-sm reveal">
+        <BookingWidget client:load />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-28 md:py-40 px-6 md:px-12 border-t border-border">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">FAQ</p>
+        <h2 class="font-serif text-4xl md:text-5xl">Common questions</h2>
+      </div>
+      <div class="faq-accordion">
+        {faqs.map((faq) => (
+          <details class="faq-item border-border border-b">
+            <summary class="text-left font-serif text-lg hover:text-muted-foreground transition-colors py-6 cursor-pointer list-none flex justify-between items-center">
+              <span>{faq.q}</span>
+              <span class="faq-chevron ml-4 shrink-0 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="text-muted-foreground leading-relaxed pb-6">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-foreground text-background py-16 md:py-20 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-16">
+        <div>
+          <div class="font-serif text-2xl tracking-wide mb-2">Salt & Sky</div>
+          <p class="text-background/50 text-sm">Julian, California</p>
+        </div>
+        <div class="flex gap-8 text-xs tracking-[0.15em] uppercase text-background/50">
+          <a href="https://www.instagram.com/saltandskylodgingco/" target="_blank" rel="noopener noreferrer" class="hover:text-background transition-colors">Instagram</a>
+          <a href="mailto:saltandskylodgingco@gmail.com" class="hover:text-background transition-colors">Email</a>
+          <a href="tel:6197984974" class="hover:text-background transition-colors">619.798.4974</a>
+          <a href="#booking" class="hover:text-background transition-colors">Book</a>
+        </div>
+      </div>
+      <div class="text-center text-[11px] text-background/30 uppercase tracking-[0.3em]">
+        &copy; {new Date().getFullYear()} Salt & Sky. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 hidden">
+    <button id="lightboxClose" class="absolute top-6 right-6 text-white/60 hover:text-white text-sm tracking-widest uppercase">Close</button>
+    <button id="lightboxPrev" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div id="lightboxImageContainer" class="w-full h-[85vh] flex items-center justify-center">
+      <img id="lightboxImage" src="" alt="" class="max-w-full max-h-full object-contain" />
+    </div>
+    <button id="lightboxNext" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <div id="lightboxCounter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest"></div>
+  </div>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '-60px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Gallery scroll buttons
+    const galleryScroll = document.getElementById('galleryScroll') as HTMLElement;
+    document.getElementById('galleryPrev')!.addEventListener('click', () => {
+      galleryScroll.scrollBy({ left: -galleryScroll.offsetWidth * 0.4, behavior: 'smooth' });
+    });
+    document.getElementById('galleryNext')!.addEventListener('click', () => {
+      galleryScroll.scrollBy({ left: galleryScroll.offsetWidth * 0.4, behavior: 'smooth' });
+    });
+
+    // Lightbox
+    const galleryImages: { src: string; alt: string }[] = [
+      { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
+      { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
+      { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
+      { src: "/dining-room.jpg", alt: "Dining nook with antler chandelier and mountain views" },
+      { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
+      { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
+      { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
+      { src: "/swing-dawn.jpg", alt: "Wooden garden swing at dawn overlooking the layered mountains" },
+      { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
+      { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+      { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
+    ];
+
+    const lightbox = document.getElementById('lightbox') as HTMLElement;
+    const lightboxImage = document.getElementById('lightboxImage') as HTMLImageElement;
+    const lightboxCounter = document.getElementById('lightboxCounter') as HTMLElement;
+    let currentIndex = 0;
+
+    function openLightbox(index: number) {
+      currentIndex = index;
+      lightboxImage.src = galleryImages[index].src;
+      lightboxImage.alt = galleryImages[index].alt;
+      lightboxCounter.textContent = `${index + 1} / ${galleryImages.length}`;
+      lightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function showPrev() {
+      currentIndex = currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
+      lightboxImage.src = galleryImages[currentIndex].src;
+      lightboxImage.alt = galleryImages[currentIndex].alt;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+    }
+
+    function showNext() {
+      currentIndex = currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
+      lightboxImage.src = galleryImages[currentIndex].src;
+      lightboxImage.alt = galleryImages[currentIndex].alt;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(parseInt((el as HTMLElement).dataset.lightbox!));
+      });
+    });
+
+    document.getElementById('lightboxClose')!.addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev')!.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    document.getElementById('lightboxNext')!.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+    lightbox.addEventListener('click', closeLightbox);
+    document.getElementById('lightboxImageContainer')!.addEventListener('click', (e) => e.stopPropagation());
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+
+    // FAQ chevron rotation
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('toggle', () => {
+        const chevron = (item as HTMLElement).querySelector('.faq-chevron') as HTMLElement;
+        if ((item as HTMLDetailsElement).open) {
+          chevron.style.transform = 'rotate(180deg)';
+        } else {
+          chevron.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+  </script>
+</Layout>
+
+<style>
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .hidden {
+    display: none !important;
+  }
+</style>

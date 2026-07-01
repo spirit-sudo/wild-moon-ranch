@@ -1,0 +1,3 @@
+- [Astro static site build](astro-static.md) — Astro dev spawns a background daemon, so dev workflows should use `astro preview` for a foreground server.
+- [Tailwind CSS v4 in Astro](tailwind-astro.md) — Must import `@/styles/global.css` in `Layout.astro` frontmatter for Tailwind to compile. @tailwindcss/vite plugin replaces postcss plugin.
+- [Hostfully booking widget integration](hostfully-widget.md) — Load pikaday.js and leadCaptureWidget_2.0.js via CDN with `is:inline` in Astro, use `leadWidget` div ID.
