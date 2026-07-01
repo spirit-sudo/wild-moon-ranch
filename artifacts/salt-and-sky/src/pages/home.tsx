@@ -43,7 +43,6 @@ export default function Home() {
 
   const galleryImages = [
     { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
-    { src: "/bedroom2.jpg", alt: "Western-inspired bedroom with Navajo pillows and dark wood" },
     { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
     { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
@@ -116,7 +115,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(3)}
+            onClick={() => setLightbox(5)}
           >
             <img src="/bathtub.jpg" alt="Candlelit bathtub with open book and wildflowers" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
