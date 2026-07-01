@@ -431,8 +431,9 @@ export default function Home() {
               <p className="text-background/50 text-sm">Julian, California</p>
             </div>
             <div className="flex gap-8 text-xs tracking-[0.15em] uppercase text-background/50">
-              <a href="#" className="hover:text-background transition-colors">Instagram</a>
-              <a href="mailto:hello@saltandsky.com" className="hover:text-background transition-colors">Email</a>
+              <a href="https://www.instagram.com/saltandskylodgingco/" target="_blank" rel="noopener noreferrer" className="hover:text-background transition-colors">Instagram</a>
+              <a href="mailto:saltandskylodgingco@gmail.com" className="hover:text-background transition-colors">Email</a>
+              <a href="tel:6197984974" className="hover:text-background transition-colors">619.798.4974</a>
               <button onClick={scrollToBooking} className="hover:text-background transition-colors">Book</button>
             </div>
           </div>
