@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
-import { format } from "date-fns";
-import { DateRange } from "react-day-picker";
+
 import {
-  ArrowRight,
   MapPin,
   Flame,
   Waves,
@@ -17,7 +15,6 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
@@ -34,12 +31,49 @@ const stagger = {
 export default function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [date, setDate] = useState<DateRange | undefined>();
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
-
   const scrollToBooking = () => {
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "Widget" in window) {
+      // @ts-expect-error Hostfully widget is loaded via external script
+      new window.Widget("leadWidget", "130d92d2-903a-4296-acf5-aad48274f284", {
+        maximun_availability: "2029-06-30T05:11:34.606Z",
+        type: "agency",
+        fields: [],
+        showAvailability: true,
+        lang: "US",
+        minStay: true,
+        price: true,
+        hidePriceWithoutDates: true,
+        cc: false,
+        emailClient: true,
+        saveCookie: true,
+        showDynamicMinStay: true,
+        backgroundColor: "#FFFFFF",
+        buttonSubmit: { backgroundColor: "#6498a3" },
+        showPriceDetailsLink: true,
+        showGetQuoteLink: false,
+        labelColor: "#6997ab",
+        showTotalWithoutSD: true,
+        redirectURL: false,
+        showDiscount: true,
+        includeReferrerToRequest: true,
+        customDomainName: null,
+        source: null,
+        aid: "ORB-49587220416635719",
+        clickID: null,
+        valuesByDefaults: {
+          checkIn: { value: "" },
+          checkOut: { value: "" },
+          guests: { value: "" },
+          discountCode: { value: "" },
+        },
+        pathRoot: "https://platform.hostfully.com/",
+      });
+    }
+  }, []);
 
   const galleryImages = [
     { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
@@ -54,12 +88,6 @@ export default function Home() {
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
     { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
   ];
-
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormState("submitting");
-    setTimeout(() => setFormState("success"), 1500);
-  };
 
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
@@ -351,106 +379,16 @@ export default function Home() {
 
       {/* Booking */}
       <section id="booking" className="py-28 md:py-40 px-6 md:px-12 border-t border-border">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Availability</p>
             <h2 className="font-serif text-4xl md:text-5xl mb-4">Secure your dates</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              We respond to all direct booking inquiries within two hours. Select your dates, tell us a bit about your trip, and we'll handle the rest.
+              Check real-time availability and book directly. No service fees, no third-party markups.
             </p>
           </div>
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-            <div>
-              <div className="bg-card border border-border p-6 rounded-sm">
-                <Calendar
-                  mode="range"
-                  selected={date}
-                  onSelect={setDate}
-                  className="mx-auto"
-                  classNames={{
-                    day_selected: "bg-foreground text-background hover:bg-foreground hover:text-background",
-                    day_today: "bg-muted text-foreground",
-                  }}
-                />
-              </div>
-              <div className="mt-6 flex items-center gap-2 text-xs text-muted-foreground">
-                <div className="w-3 h-3 bg-foreground rounded-full" />
-                <span>Selected dates</span>
-                <div className="w-3 h-3 bg-muted rounded-full ml-4" />
-                <span>Today</span>
-              </div>
-            </div>
-            <div>
-              {formState === "success" ? (
-                <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-card border border-border rounded-sm">
-                  <div className="w-14 h-14 rounded-full bg-foreground/10 flex items-center justify-center mb-6">
-                    <Check className="w-7 h-7 text-foreground" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-serif text-3xl mb-4">Request received</h3>
-                  <p className="text-muted-foreground max-w-sm">
-                    Thank you. We will confirm your dates and send a secure payment link within two hours.
-                  </p>
-                  <Button variant="outline" className="mt-8 rounded-none uppercase tracking-widest text-xs" onClick={() => setFormState("idle")}>
-                    Send another inquiry
-                  </Button>
-                </div>
-              ) : (
-                <form onSubmit={handleBookingSubmit} className="space-y-6">
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">First Name</label>
-                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="Jane" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Last Name</label>
-                      <input required type="text" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="Doe" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Email</label>
-                    <input required type="email" className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40" placeholder="jane@example.com" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Guests</label>
-                      <select required className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground appearance-none">
-                        <option value="1">1 Guest</option>
-                        <option value="2">2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                        <option value="5">5 Guests</option>
-                        <option value="6">6 Guests</option>
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Selected Dates</label>
-                      <div className="py-3 border-b border-border text-foreground text-sm">
-                        {date?.from ? (
-                          date.to ? (
-                            <>{format(date.from, "LLL dd")} — {format(date.to, "LLL dd, y")}</>
-                          ) : (
-                            format(date.from, "LLL dd, y")
-                          )
-                        ) : (
-                          <span className="text-muted-foreground">Pick dates on calendar</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Message</label>
-                    <textarea rows={3} className="w-full bg-transparent border-b border-border py-3 px-0 focus:outline-none focus:border-foreground transition-colors text-foreground placeholder:text-muted-foreground/40 resize-none" placeholder="Tell us about your trip..." />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-foreground text-background hover:bg-foreground/80 rounded-none tracking-[0.15em] uppercase py-6 text-sm flex items-center justify-center gap-2"
-                    disabled={formState === "submitting" || !date?.from}
-                  >
-                    {formState === "submitting" ? "Sending..." : "Submit Inquiry"} <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </form>
-              )}
-            </div>
+          <div className="bg-card border border-border p-6 md:p-10 rounded-sm">
+            <div id="leadWidget" />
           </div>
         </div>
       </section>
