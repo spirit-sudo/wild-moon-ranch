@@ -216,7 +216,7 @@ export default function Home() {
                 {[
                   "Save up to 18% by avoiding platform service fees",
                   "Direct host contact from inquiry to checkout",
-                  "Complimentary late checkout when available",
+                  "No hidden fees or surprise charges",
                   "Priority rebooking for return guests",
                 ].map((perk, i) => (
                   <li key={i} className="flex items-start gap-4 text-sm">
