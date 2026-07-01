@@ -43,14 +43,13 @@ export default function Home() {
 
   const galleryImages = [
     { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
-    { src: "/bedroom.jpg", alt: "Western-inspired bedroom with dark wood and Navajo textiles" },
+    { src: "/bedroom2.jpg", alt: "Western-inspired bedroom with Navajo pillows and dark wood" },
     { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
     { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
     { src: "/hottub-close.jpg", alt: "Cedar soaking tub with sunset over the ridge" },
     { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
-    { src: "/aerial-courts.jpg", alt: "Golden hour aerial of cabin and pickleball courts" },
     { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
     { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
@@ -266,7 +265,7 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[4/3] overflow-hidden rounded-sm"
           >
-            <img src="/aerial-courts.jpg" alt="Golden hour aerial of the property" className="w-full h-full object-cover" />
+            <img src="/bedroom2.jpg" alt="Western-inspired bedroom with Navajo pillows and dark wood" className="w-full h-full object-cover" />
           </motion.div>
           <div>
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
