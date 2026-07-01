@@ -15,7 +15,7 @@ paths = [ "/" ]
 localPort = 23443
 
 [services.development]
-run = "pnpm --filter @workspace/salt-and-sky exec astro preview --host 0.0.0.0"
+run = "pnpm --filter @workspace/salt-and-sky exec astro preview --host 0.0.0.0 --allowed-hosts"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/salt-and-sky", "run", "build" ]
