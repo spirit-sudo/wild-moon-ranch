@@ -42,14 +42,15 @@ export default function Home() {
   };
 
   const galleryImages = [
-    { src: "/hero-deck.jpg", alt: "Sunset from the main deck over the mountain layers" },
+    { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
     { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/hottub-close.jpg", alt: "Cedar soaking tub with sunset over the ridge" },
-    { src: "/swing.jpg", alt: "Porch swing overlooking the layered mountains" },
+    { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
     { src: "/aerial-courts.jpg", alt: "Golden hour aerial of cabin and pickleball courts" },
     { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+    { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
   ];
 
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -77,7 +78,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative min-h-screen flex items-end">
         <div className="absolute inset-0">
-          <img src="/hero-deck.jpg" alt="Salt & Sky deck at sunset" className="w-full h-full object-cover" />
+          <img src="/aerial-dusk.jpg" alt="Dusk aerial view over Cuyamaca Lake and the mountains" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
         </div>
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
@@ -155,7 +156,7 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[3/4] overflow-hidden rounded-sm"
           >
-            <img src="/deck-hottub.jpg" alt="The property at sunset" className="w-full h-full object-cover" />
+            <img src="/hottub-path.jpg" alt="Cedar hot tub from the stone path at golden hour" className="w-full h-full object-cover" />
           </motion.div>
         </div>
       </section>
