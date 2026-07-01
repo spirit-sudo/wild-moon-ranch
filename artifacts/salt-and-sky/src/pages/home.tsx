@@ -114,9 +114,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(1)}
+            onClick={() => setLightbox(3)}
           >
-            <img src="/side-deck.jpg" alt="Side deck at golden hour" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/hottub-close.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -124,9 +124,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15 }}
             className="md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(3)}
+            onClick={() => setLightbox(1)}
           >
-            <img src="/hottub-close.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/side-deck.jpg" alt="Side deck at golden hour" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
         </div>
       </section>
