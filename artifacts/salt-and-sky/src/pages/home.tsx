@@ -511,7 +511,9 @@ export default function Home() {
           <button className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === 0 ? galleryImages.length - 1 : lightbox - 1); }}>
             <ChevronLeft className="w-8 h-8" />
           </button>
-          <img src={galleryImages[lightbox].src} alt={galleryImages[lightbox].alt} className="max-w-full max-h-[85vh] object-contain" onClick={(e) => e.stopPropagation()} />
+          <div className="w-full h-[85vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <img src={galleryImages[lightbox].src} alt={galleryImages[lightbox].alt} className="max-w-full max-h-full object-contain" />
+          </div>
           <button className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-white" onClick={(e) => { e.stopPropagation(); setLightbox(lightbox === galleryImages.length - 1 ? 0 : lightbox + 1); }}>
             <ChevronRight className="w-8 h-8" />
           </button>
