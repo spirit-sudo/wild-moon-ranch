@@ -172,7 +172,7 @@ export default function Home() {
           {[
             { icon: Waves, title: "Cedar Soaking Tub", desc: "Hot tub carved from western red cedar, positioned at the property edge with full mountain panorama. Soak under stars you can actually see." },
             { icon: Dumbbell, title: "Pickleball Court", desc: "Full regulation court on the property. A volley at 4,200 feet with mountain views beats any indoor club." },
-            { icon: Sun, title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a wooden garden swing. Every seat faces the ridgeline." },
+            { icon: Sun, title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, a wooden garden swing, and a gas BBQ. Every seat faces the ridgeline." },
             { icon: Flame, title: "Indoor Fireplace", desc: "Wood-burning hearth for the winter months. Stocked with oak. The cabin glows differently when it's lit." },
             { icon: Wifi, title: "Starlink WiFi", desc: "Rural-grade satellite internet at 100+ Mbps. Work remotely if you must. Stream flawlessly when you unwind." },
             { icon: Mountain, title: "Dark Sky Views", desc: "Minimal light pollution. On clear nights the Milky Way is visible to the naked eye. Bring a tripod." },
