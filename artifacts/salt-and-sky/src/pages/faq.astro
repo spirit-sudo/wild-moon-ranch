@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const faqs = [
+  { q: "Is the property pet-friendly?", a: "To preserve the condition of the home and the surrounding landscape, we do not allow pets. Service animals are welcome per ADA requirements." },
+  { q: "Do I need a 4x4 to get there?", a: "No, the property is accessible by standard vehicles via paved roads. No 4x4 or all-wheel drive is required." },
+  { q: "How fast is the internet?", a: "The property has Starlink satellite internet running 100+ Mbps, fast enough for remote work video calls and HD streaming." },
+  { q: "How many people can the property accommodate?", a: "The property accommodates up to 10 guests." },
+  { q: "What is the cancellation policy?", a: "We offer a 30-day cancellation policy — cancel at least 30 days before check-in for a full refund." },
+  { q: "Is there cell service?", a: "Cell service is partial across all major carriers due to Julian's mountain terrain. The property's Starlink WiFi supports calls and messaging over WiFi as a reliable backup." },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout
+  title="FAQ — Julian, CA Cabin Rental | Salt & Sky"
+  description="Pet policy, road access, internet speed, cell service, cancellation policy, and occupancy — everything you need to know before booking our Julian, CA cabin."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Nav />
+
+  <section class="pt-40 md:pt-48 pb-16 md:pb-20 px-6 md:px-12 max-w-3xl mx-auto text-center">
+    <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">FAQ</p>
+    <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight">Common questions</h1>
+  </section>
+
+  <section class="pb-28 md:pb-40 px-6 md:px-12">
+    <div class="max-w-3xl mx-auto">
+      <div class="faq-accordion">
+        {faqs.map((faq) => (
+          <details class="faq-item border-border border-b">
+            <summary class="text-left font-serif text-lg hover:text-muted-foreground transition-colors py-6 cursor-pointer list-none flex justify-between items-center">
+              <span>{faq.q}</span>
+              <span class="ml-4 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="text-muted-foreground leading-relaxed pb-6">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="text-center mt-16">
+        <a href={`${base}#booking`} class="inline-block bg-foreground text-background hover:bg-foreground/80 transition-colors px-8 py-3.5 text-sm tracking-widest uppercase">
+          Reserve Your Dates
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

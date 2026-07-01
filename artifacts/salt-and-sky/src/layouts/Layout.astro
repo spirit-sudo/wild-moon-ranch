@@ -1,34 +1,104 @@
 ---
 import "@/styles/global.css";
+import aerialDusk from "@/assets/images/aerial-dusk.jpg";
+import deckHottub from "@/assets/images/deck-hottub.jpg";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Salt & Sky — A private mountain compound in Julian, California." } = Astro.props;
+const { title, description = "Private mountain compound at 5,440 feet elevation in Julian, California, featuring a cedar soaking tub, regulation pickleball court, and certified Dark Sky views." } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(`${base}opengraph.jpg`, Astro.site);
+
+const lodgingBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  name: "Salt & Sky — Julian CA",
+  description: "Private mountain compound at 5,440 feet elevation in Julian, California, featuring a cedar soaking tub, regulation pickleball court, and certified Dark Sky views.",
+  url: "https://saltandskylodgingco.com/julian-ca/",
+  telephone: "+16197984974",
+  email: "saltandskylodgingco@gmail.com",
+  image: [
+    new URL(aerialDusk.src, Astro.site).href,
+    new URL(deckHottub.src, Astro.site).href,
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Julian",
+    addressRegion: "CA",
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    elevation: "1658",
+  },
+  priceRange: "$$$",
+  amenityFeature: [
+    { "@type": "LocationFeatureSpecification", name: "Cedar Soaking Tub", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Regulation Pickleball Court", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Wood-Burning Fireplace", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Starlink High-Speed WiFi", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Dark Sky Certified Location", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Full-Width Sunset Deck", value: true },
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "3",
+    bestRating: "5",
+  },
+  review: [
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Sarah M." },
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      reviewBody: "The view from the deck at sunset is the most beautiful thing I have ever seen from a rental property.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "David & Rachel" },
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      reviewBody: "We played pickleball at golden hour, soaked in the tub under a sky full of stars, and did not open a laptop for three days.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "James K." },
+      reviewRating: { "@type": "Rating", ratingValue: "5" },
+      reviewBody: "The property photographs don't prepare you for how dramatic the light is in person.",
+    },
+  ],
+};
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="twitter:image" content={ogImageURL} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script is:inline type="text/javascript" src="https://platform.hostfully.com/assets/js/pikaday.js" defer></script>
     <script is:inline type="text/javascript" src="https://platform.hostfully.com/assets/js/leadCaptureWidget_2.0.js" defer></script>
+    <script type="application/ld+json" set:html={JSON.stringify(lodgingBusinessSchema)} />
   </head>
   <body class="bg-background text-foreground min-h-screen overflow-x-hidden font-sans antialiased">
     <slot />

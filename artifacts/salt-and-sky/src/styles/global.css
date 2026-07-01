@@ -104,3 +104,8 @@
 .gallery-item {
   scroll-snap-align: start;
 }
+
+/* FAQ accordion */
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}

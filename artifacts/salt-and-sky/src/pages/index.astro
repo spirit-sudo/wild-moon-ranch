@@ -1,24 +1,43 @@
 ---
+import { Picture } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
 import BookingWidget from "@/components/BookingWidget.jsx";
 
+import aerialDusk from "@/assets/images/aerial-dusk.jpg";
+import recordFireplace from "@/assets/images/record-fireplace.jpg";
+import sideDeck from "@/assets/images/side-deck.jpg";
+import diningRoom from "@/assets/images/dining-room.jpg";
+import dogWine from "@/assets/images/dog-wine.jpg";
+import gameRoom from "@/assets/images/game-room.jpg";
+import deckHottub from "@/assets/images/deck-hottub.jpg";
+import swingDawn from "@/assets/images/swing-dawn.jpg";
+import aerialWide from "@/assets/images/aerial-wide.jpg";
+import eveningLake from "@/assets/images/evening-lake.jpg";
+import hottubPath from "@/assets/images/hottub-path.jpg";
+import bathtub from "@/assets/images/bathtub.jpg";
+import bedroom2 from "@/assets/images/bedroom2.jpg";
+
 const galleryImages = [
-  { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
-  { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
-  { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
-  { src: "/dining-room.jpg", alt: "Dining nook with antler chandelier and mountain views" },
-  { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
-  { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
-  { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
-  { src: "/swing-dawn.jpg", alt: "Wooden garden swing at dawn overlooking the layered mountains" },
-  { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
-  { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
-  { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
+  { image: aerialDusk, alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
+  { image: recordFireplace, alt: "Vinyl and wine by the fireplace" },
+  { image: sideDeck, alt: "Side deck at golden hour with mountain vista" },
+  { image: diningRoom, alt: "Dining nook with antler chandelier and mountain views" },
+  { image: dogWine, alt: "Relaxing on the swing with wine and mountain views" },
+  { image: gameRoom, alt: "Game room with leather sofa, dartboard, and air hockey" },
+  { image: deckHottub, alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
+  { image: swingDawn, alt: "Wooden garden swing at dawn overlooking the layered mountains" },
+  { image: aerialWide, alt: "Wide aerial showing full property at sunset" },
+  { image: eveningLake, alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+  { image: hottubPath, alt: "Cedar hot tub from the stone path at golden hour" },
 ];
+
+const lightboxImages = galleryImages.map((g) => ({ src: g.image.src, alt: g.alt }));
 
 const amenities = [
   { icon: "waves", title: "Cedar Soaking Tub", desc: "Hot tub carved from western red cedar, positioned at the property edge with full mountain panorama. Soak under stars you can actually see." },
-  { icon: "dumbbell", title: "Pickleball Court", desc: "Full regulation court on the property. A volley at 4,200 feet with mountain views beats any indoor club." },
+  { icon: "dumbbell", title: "Pickleball Court", desc: "Full regulation court on the property. A volley at 5,440 feet with mountain views beats any indoor club." },
   { icon: "sun", title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a gas BBQ. Every seat faces the ridgeline." },
   { icon: "flame", title: "Indoor Fireplace", desc: "Wood-burning hearth for the winter months. Stocked with oak. The cabin glows differently when it's lit." },
   { icon: "wifi", title: "Starlink WiFi", desc: "Rural-grade satellite internet at 100+ Mbps. Work remotely if you must. Stream flawlessly when you unwind." },
@@ -33,29 +52,24 @@ const testimonials = [
 
 const faqs = [
   { q: "Is the property pet-friendly?", a: "To preserve the condition of the home and the surrounding landscape, we do not allow pets. Service animals are welcome per ADA requirements." },
-  { q: "Do I need a 4x4 to get there?", a: "The road is paved all the way to the property. During winter storms (December through February), Caltrans may require chains or 4WD/AWD on the mountain highways." },
-  { q: "How fast is the internet?", a: "Starlink satellite internet averages 100–150 Mbps download. It's sufficient for video calls, streaming, and remote work — though we encourage you to disconnect." },
-  { q: "What is the cancellation policy?", a: "Full refund for cancellations within 48 hours of booking. 50% refund for cancellations at least 14 days before check-in. No refund within 14 days of arrival." },
-  { q: "Is there cell service?", a: "Cell reception is spotty in the mountains. Wi-Fi calling works perfectly through Starlink. We recommend downloading maps and music before arrival." },
-  { q: "How many people can the property accommodate?", a: "The cabin sleeps up to 6 guests across 3 bedrooms. The pickleball court, deck, and hot tub comfortably handle groups of this size." },
+  { q: "Do I need a 4x4 to get there?", a: "No, the property is accessible by standard vehicles via paved roads. No 4x4 or all-wheel drive is required." },
+  { q: "How fast is the internet?", a: "The property has Starlink satellite internet running 100+ Mbps, fast enough for remote work video calls and HD streaming." },
+  { q: "What is the cancellation policy?", a: "We offer a 30-day cancellation policy — cancel at least 30 days before check-in for a full refund." },
+  { q: "Is there cell service?", a: "Cell service is partial across all major carriers due to Julian's mountain terrain. The property's Starlink WiFi supports calls and messaging over WiFi as a reliable backup." },
+  { q: "How many people can the property accommodate?", a: "The property accommodates up to 10 guests." },
 ];
 ---
 
-<Layout title="Salt & Sky — Julian, California">
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-background/80 backdrop-blur-md border-b border-border">
-    <div class="font-serif text-xl tracking-wide">Salt & Sky</div>
-    <div class="flex items-center gap-4">
-      <a href="#booking" class="text-sm px-5 py-2 border border-foreground/20 hover:bg-foreground hover:text-background transition-colors">
-        Book Now
-      </a>
-    </div>
-  </nav>
+<Layout
+  title="Salt & Sky — Julian, California"
+  description="Private mountain compound at 5,440 feet elevation in Julian, California, featuring a cedar soaking tub, regulation pickleball court, and certified Dark Sky views."
+>
+  <Nav />
 
   <!-- Hero -->
   <section class="relative min-h-screen flex items-end">
     <div class="absolute inset-0">
-      <img src="/aerial-dusk.jpg" alt="Dusk aerial view over Cuyamaca Lake and the mountains" class="w-full h-full object-cover" />
+      <Picture src={aerialDusk} alt="Dusk aerial view over Cuyamaca Lake and the mountains" formats={["webp"]} class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
       <div class="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
     </div>
     <div class="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
@@ -75,7 +89,7 @@ const faqs = [
   <section class="py-28 md:py-40 px-6 md:px-12">
     <div class="reveal max-w-3xl mx-auto text-center">
       <p class="font-serif text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed">
-        A private mountain compound at 4,200 feet elevation. Where the air is thin, the views are endless, and the only thing on your schedule is sunset.
+        A private mountain compound at 5,440 feet elevation. Where the air is thin, the views are endless, and the only thing on your schedule is sunset.
       </p>
     </div>
   </section>
@@ -84,10 +98,10 @@ const faqs = [
   <section class="px-6 md:px-12">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
       <div class="reveal md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm group">
-        <img src="/bathtub.jpg" alt="Candlelit bathtub with open book and wildflowers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <Picture src={bathtub} alt="Candlelit bathtub with open book and wildflowers" formats={["webp"]} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
       </div>
       <div class="reveal md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group" data-lightbox="1">
-        <img src="/side-deck.jpg" alt="Side deck at golden hour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <Picture src={sideDeck} alt="Side deck at golden hour" formats={["webp"]} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
       </div>
     </div>
   </section>
@@ -112,7 +126,7 @@ const faqs = [
         </div>
       </div>
       <div class="reveal relative aspect-[3/4] overflow-hidden rounded-sm">
-        <img src="/hottub-path.jpg" alt="Cedar hot tub from the stone path at golden hour" class="w-full h-full object-cover" />
+        <Picture src={hottubPath} alt="Cedar hot tub from the stone path at golden hour" formats={["webp"]} class="w-full h-full object-cover" />
       </div>
     </div>
   </section>
@@ -141,7 +155,7 @@ const faqs = [
 
   <!-- Full-bleed single photo -->
   <section class="relative h-[60vh] md:h-[70vh]">
-    <img src="/evening-lake.jpg" alt="Twilight aerial over the lake and mountains" class="w-full h-full object-cover" />
+    <Picture src={eveningLake} alt="Twilight aerial over the lake and mountains" formats={["webp"]} class="w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/20" />
     <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12">
       <div class="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
@@ -210,7 +224,7 @@ const faqs = [
   <section class="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
     <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
       <div class="reveal relative aspect-[4/3] overflow-hidden rounded-sm">
-        <img src="/bedroom2.jpg" alt="Western-inspired bedroom with Navajo pillows and dark wood" class="w-full h-full object-cover" />
+        <Picture src={bedroom2} alt="Western-inspired bedroom with Navajo pillows and dark wood" formats={["webp"]} class="w-full h-full object-cover" />
       </div>
       <div class="reveal">
         <p class="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
@@ -277,7 +291,7 @@ const faqs = [
       {galleryImages.map((img) => (
         <div class="gallery-item flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-3 md:pl-4 first:pl-6 md:first:pl-12">
           <div class="relative aspect-[4/3] overflow-hidden rounded-sm group">
-            <img src={img.src} alt={img.alt} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Picture src={img.image} alt={img.alt} formats={["webp"]} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
       ))}
@@ -325,26 +339,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-foreground text-background py-16 md:py-20 px-6 md:px-12">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-16">
-        <div>
-          <div class="font-serif text-2xl tracking-wide mb-2">Salt & Sky</div>
-          <p class="text-background/50 text-sm">Julian, California</p>
-        </div>
-        <div class="flex gap-8 text-xs tracking-[0.15em] uppercase text-background/50">
-          <a href="https://www.instagram.com/saltandskylodgingco/" target="_blank" rel="noopener noreferrer" class="hover:text-background transition-colors">Instagram</a>
-          <a href="mailto:saltandskylodgingco@gmail.com" class="hover:text-background transition-colors">Email</a>
-          <a href="tel:6197984974" class="hover:text-background transition-colors">619.798.4974</a>
-          <a href="#booking" class="hover:text-background transition-colors">Book</a>
-        </div>
-      </div>
-      <div class="text-center text-[11px] text-background/30 uppercase tracking-[0.3em]">
-        &copy; {new Date().getFullYear()} Salt & Sky. All rights reserved.
-      </div>
-    </div>
-  </footer>
+  <Footer />
 
   <!-- Lightbox -->
   <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 hidden">
@@ -361,7 +356,7 @@ const faqs = [
     <div id="lightboxCounter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest"></div>
   </div>
 
-  <script>
+  <script define:vars={{ lightboxImages }}>
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -375,39 +370,25 @@ const faqs = [
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // Gallery scroll buttons
-    const galleryScroll = document.getElementById('galleryScroll') as HTMLElement;
-    document.getElementById('galleryPrev')!.addEventListener('click', () => {
+    const galleryScroll = document.getElementById('galleryScroll');
+    document.getElementById('galleryPrev').addEventListener('click', () => {
       galleryScroll.scrollBy({ left: -galleryScroll.offsetWidth * 0.4, behavior: 'smooth' });
     });
-    document.getElementById('galleryNext')!.addEventListener('click', () => {
+    document.getElementById('galleryNext').addEventListener('click', () => {
       galleryScroll.scrollBy({ left: galleryScroll.offsetWidth * 0.4, behavior: 'smooth' });
     });
 
     // Lightbox
-    const galleryImages: { src: string; alt: string }[] = [
-      { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
-      { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
-      { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
-      { src: "/dining-room.jpg", alt: "Dining nook with antler chandelier and mountain views" },
-      { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
-      { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
-      { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
-      { src: "/swing-dawn.jpg", alt: "Wooden garden swing at dawn overlooking the layered mountains" },
-      { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
-      { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
-      { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
-    ];
-
-    const lightbox = document.getElementById('lightbox') as HTMLElement;
-    const lightboxImage = document.getElementById('lightboxImage') as HTMLImageElement;
-    const lightboxCounter = document.getElementById('lightboxCounter') as HTMLElement;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCounter = document.getElementById('lightboxCounter');
     let currentIndex = 0;
 
-    function openLightbox(index: number) {
+    function openLightbox(index) {
       currentIndex = index;
-      lightboxImage.src = galleryImages[index].src;
-      lightboxImage.alt = galleryImages[index].alt;
-      lightboxCounter.textContent = `${index + 1} / ${galleryImages.length}`;
+      lightboxImage.src = lightboxImages[index].src;
+      lightboxImage.alt = lightboxImages[index].alt;
+      lightboxCounter.textContent = `${index + 1} / ${lightboxImages.length}`;
       lightbox.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
@@ -418,31 +399,31 @@ const faqs = [
     }
 
     function showPrev() {
-      currentIndex = currentIndex === 0 ? galleryImages.length - 1 : currentIndex - 1;
-      lightboxImage.src = galleryImages[currentIndex].src;
-      lightboxImage.alt = galleryImages[currentIndex].alt;
-      lightboxCounter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+      currentIndex = currentIndex === 0 ? lightboxImages.length - 1 : currentIndex - 1;
+      lightboxImage.src = lightboxImages[currentIndex].src;
+      lightboxImage.alt = lightboxImages[currentIndex].alt;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${lightboxImages.length}`;
     }
 
     function showNext() {
-      currentIndex = currentIndex === galleryImages.length - 1 ? 0 : currentIndex + 1;
-      lightboxImage.src = galleryImages[currentIndex].src;
-      lightboxImage.alt = galleryImages[currentIndex].alt;
-      lightboxCounter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+      currentIndex = currentIndex === lightboxImages.length - 1 ? 0 : currentIndex + 1;
+      lightboxImage.src = lightboxImages[currentIndex].src;
+      lightboxImage.alt = lightboxImages[currentIndex].alt;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${lightboxImages.length}`;
     }
 
     document.querySelectorAll('[data-lightbox]').forEach(el => {
       el.addEventListener('click', (e) => {
         e.stopPropagation();
-        openLightbox(parseInt((el as HTMLElement).dataset.lightbox!));
+        openLightbox(parseInt(el.dataset.lightbox));
       });
     });
 
-    document.getElementById('lightboxClose')!.addEventListener('click', closeLightbox);
-    document.getElementById('lightboxPrev')!.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
-    document.getElementById('lightboxNext')!.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    document.getElementById('lightboxNext').addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
     lightbox.addEventListener('click', closeLightbox);
-    document.getElementById('lightboxImageContainer')!.addEventListener('click', (e) => e.stopPropagation());
+    document.getElementById('lightboxImageContainer').addEventListener('click', (e) => e.stopPropagation());
 
     document.addEventListener('keydown', (e) => {
       if (lightbox.classList.contains('hidden')) return;
@@ -454,8 +435,8 @@ const faqs = [
     // FAQ chevron rotation
     document.querySelectorAll('.faq-item').forEach(item => {
       item.addEventListener('toggle', () => {
-        const chevron = (item as HTMLElement).querySelector('.faq-chevron') as HTMLElement;
-        if ((item as HTMLDetailsElement).open) {
+        const chevron = item.querySelector('.faq-chevron');
+        if (item.open) {
           chevron.style.transform = 'rotate(180deg)';
         } else {
           chevron.style.transform = 'rotate(0deg)';
@@ -466,9 +447,6 @@ const faqs = [
 </Layout>
 
 <style>
-  .faq-item summary::-webkit-details-marker {
-    display: none;
-  }
   .hidden {
     display: none !important;
   }
