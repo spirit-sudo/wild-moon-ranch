@@ -50,8 +50,8 @@ export default function Home() {
     { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
     { src: "/bathtub.jpg", alt: "Candlelit bathtub with open book and wildflowers" },
     { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
-    { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
-    { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+    { src: "/aerial-courts.png", alt: "Aerial sunset view with private tennis court and the cabin" },
+    { src: "/gazebo.jpg", alt: "Gazebo and pond overlooking the mountain valley" },
     { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
   ];
 
@@ -195,7 +195,7 @@ export default function Home() {
 
       {/* Full-bleed single photo */}
       <section className="relative h-[60vh] md:h-[70vh]">
-        <img src="/evening-lake.jpg" alt="Twilight aerial over the lake and mountains" className="w-full h-full object-cover" />
+        <img src="/gazebo.jpg" alt="Gazebo and pond overlooking the mountain valley" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
           <div className="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
