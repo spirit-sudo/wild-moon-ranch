@@ -49,7 +49,7 @@ export default function Home() {
     { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
     { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
-    { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
+    { src: "/swing-dawn.jpg", alt: "Wooden garden swing at dawn overlooking the layered mountains" },
     { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
     { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
@@ -172,7 +172,7 @@ export default function Home() {
           {[
             { icon: Waves, title: "Cedar Soaking Tub", desc: "Hot tub carved from western red cedar, positioned at the property edge with full mountain panorama. Soak under stars you can actually see." },
             { icon: Dumbbell, title: "Pickleball Court", desc: "Full regulation court on the property. A volley at 4,200 feet with mountain views beats any indoor club." },
-            { icon: Sun, title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a porch swing. Every seat faces the ridgeline." },
+            { icon: Sun, title: "Sunset Deck", desc: "Expansive west-facing deck with Adirondack chairs, bar-height seating, and a wooden garden swing. Every seat faces the ridgeline." },
             { icon: Flame, title: "Indoor Fireplace", desc: "Wood-burning hearth for the winter months. Stocked with oak. The cabin glows differently when it's lit." },
             { icon: Wifi, title: "Starlink WiFi", desc: "Rural-grade satellite internet at 100+ Mbps. Work remotely if you must. Stream flawlessly when you unwind." },
             { icon: Mountain, title: "Dark Sky Views", desc: "Minimal light pollution. On clear nights the Milky Way is visible to the naked eye. Bring a tripod." },
@@ -276,7 +276,7 @@ export default function Home() {
               <div>
                 <h3 className="font-serif text-xl mb-2">Explore</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">
-                  Hike Volcan Mountain for panoramic views to the Pacific. Paddle Cuyamaca Lake. Visit the gold mines. Or simply do nothing on the porch swing.
+                  Hike Volcan Mountain for panoramic views to the Pacific. Paddle Cuyamaca Lake. Visit the gold mines. Or simply do nothing on the garden swing.
                 </p>
               </div>
               <div>
