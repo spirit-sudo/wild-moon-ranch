@@ -42,14 +42,17 @@ export default function Home() {
   };
 
   const galleryImages = [
+    { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
+    { src: "/bedroom2.jpg", alt: "Western-inspired bedroom with Navajo pillows and dark wood" },
+    { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
     { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
     { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
+    { src: "/bathtub.jpg", alt: "Candlelit bathtub with open book and wildflowers" },
     { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
-    { src: "/aerial-courts.png", alt: "Aerial sunset view with private tennis court and the cabin" },
-    { src: "/aerial-lake.jpg", alt: "Aerial dusk view over Cuyamaca Lake and the valley" },
-    { src: "/aerial-golden.jpg", alt: "Golden hour aerial with vivid sunset over the mountains" },
-    { src: "/swing-sunrise.jpg", alt: "Porch swing silhouetted against a golden sunrise" },
+    { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
+    { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
+    { src: "/hottub-path.jpg", alt: "Cedar hot tub from the stone path at golden hour" },
   ];
 
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -77,7 +80,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative min-h-screen flex items-end">
         <div className="absolute inset-0">
-          <img src="/aerial-sunrise.jpg" alt="Golden sunrise aerial view of cabin and pickleball court" className="w-full h-full object-cover" />
+          <img src="/aerial-dusk.jpg" alt="Dusk aerial view over Cuyamaca Lake and the mountains" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
         </div>
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
@@ -112,18 +115,20 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm group"
+            className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
+            onClick={() => setLightbox(3)}
           >
-            <img src="/cabin-exterior.jpg" alt="Cabin exterior at golden hour with mountain vista" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/bathtub.jpg" alt="Candlelit bathtub with open book and wildflowers" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm group"
+            className="md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group"
+            onClick={() => setLightbox(1)}
           >
-            <img src="/hottub-dawn.jpg" alt="Cedar hot tub at dawn from the lower terrace" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/side-deck.jpg" alt="Side deck at golden hour" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
         </div>
       </section>
@@ -153,7 +158,7 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[3/4] overflow-hidden rounded-sm"
           >
-            <img src="/hottub-sunset.jpg" alt="Cedar soaking tub glowing in golden sunset light" className="w-full h-full object-cover" />
+            <img src="/hottub-path.jpg" alt="Cedar hot tub from the stone path at golden hour" className="w-full h-full object-cover" />
           </motion.div>
         </div>
       </section>
@@ -190,7 +195,7 @@ export default function Home() {
 
       {/* Full-bleed single photo */}
       <section className="relative h-[60vh] md:h-[70vh]">
-        <img src="/deck-sunset.jpg" alt="Sunset deck with Adirondack chairs facing layered mountains" className="w-full h-full object-cover" />
+        <img src="/evening-lake.jpg" alt="Twilight aerial over the lake and mountains" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
           <div className="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
@@ -260,7 +265,7 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[4/3] overflow-hidden rounded-sm"
           >
-            <img src="/bedroom-western.jpg" alt="Western-inspired bedroom with Navajo pillows and dark wood" className="w-full h-full object-cover" />
+            <img src="/bedroom2.jpg" alt="Western-inspired bedroom with Navajo pillows and dark wood" className="w-full h-full object-cover" />
           </motion.div>
           <div>
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
