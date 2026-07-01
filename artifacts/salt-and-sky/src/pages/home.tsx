@@ -42,15 +42,14 @@ export default function Home() {
   };
 
   const galleryImages = [
-    { src: "/deck-sunset.jpg", alt: "Sunset from the deck over the mountain layers" },
-    { src: "/aerial-court.jpg", alt: "Aerial view of the property at golden hour" },
-    { src: "/deck-hottub.jpg", alt: "Cedar hot tub overlooking the mountain range" },
-    { src: "/deck-side.jpg", alt: "Side deck at sunrise with mountain vista" },
-    { src: "/aerial-property.jpg", alt: "Full property aerial with sunset" },
-    { src: "/swing-sunset.jpg", alt: "Porch swing overlooking the layered mountains" },
-    { src: "/hottub-sunset.jpg", alt: "Cedar soaking tub with sunset light" },
-    { src: "/evening-aerial.jpg", alt: "Twilight aerial over the lake and mountains" },
-    { src: "/aerial-2.jpg", alt: "Bird's eye view of cabin and courts" },
+    { src: "/hero-deck.jpg", alt: "Sunset from the main deck over the mountain layers" },
+    { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
+    { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
+    { src: "/hottub-close.jpg", alt: "Cedar soaking tub with sunset over the ridge" },
+    { src: "/swing.jpg", alt: "Porch swing overlooking the layered mountains" },
+    { src: "/aerial-courts.jpg", alt: "Golden hour aerial of cabin and pickleball courts" },
+    { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
+    { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
   ];
 
   const handleBookingSubmit = (e: React.FormEvent) => {
@@ -75,10 +74,10 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero — Full-bleed with text at bottom */}
+      {/* Hero */}
       <section className="relative min-h-screen flex items-end">
         <div className="absolute inset-0">
-          <img src="/deck-sunset.jpg" alt="Salt & Sky deck at sunset" className="w-full h-full object-cover" />
+          <img src="/hero-deck.jpg" alt="Salt & Sky deck at sunset" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
         </div>
         <motion.div initial="hidden" animate="visible" variants={stagger} className="relative z-10 px-6 md:px-12 pb-20 md:pb-28 max-w-5xl">
@@ -105,7 +104,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Curated Photo Pair — asymmetric like StayOne */}
+      {/* Curated Photo Pair */}
       <section className="px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <motion.div
@@ -114,9 +113,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="md:col-span-7 aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(0)}
+            onClick={() => setLightbox(1)}
           >
-            <img src="/deck-sunset.jpg" alt="Sunset deck" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/side-deck.jpg" alt="Side deck at golden hour" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -124,14 +123,14 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15 }}
             className="md:col-span-5 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group"
-            onClick={() => setLightbox(6)}
+            onClick={() => setLightbox(3)}
           >
-            <img src="/hottub-sunset.jpg" alt="Cedar hot tub" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/hottub-close.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </motion.div>
         </div>
       </section>
 
-      {/* Property Story — text + single image side by side */}
+      {/* Property Story */}
       <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={stagger}>
@@ -156,12 +155,12 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[3/4] overflow-hidden rounded-sm"
           >
-            <img src="/deck-hottub.jpg" alt="Cedar hot tub at sunset" className="w-full h-full object-cover" />
+            <img src="/deck-hottub.jpg" alt="The property at sunset" className="w-full h-full object-cover" />
           </motion.div>
         </div>
       </section>
 
-      {/* Amenities — text + icon grid, NO photos */}
+      {/* Amenities */}
       <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-20 md:mb-24">
           <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">What you get</p>
@@ -191,9 +190,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Full-bleed single photo as visual punctuation */}
+      {/* Full-bleed single photo */}
       <section className="relative h-[60vh] md:h-[70vh]">
-        <img src="/evening-aerial.jpg" alt="Twilight aerial over the lake and mountains" className="w-full h-full object-cover" />
+        <img src="/evening-lake.jpg" alt="Twilight aerial over the lake and mountains" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
           <div className="font-serif text-2xl md:text-3xl text-white mb-1">Julian, California</div>
@@ -201,7 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Book Direct — text only with cost card */}
+      {/* Why Book Direct */}
       <section className="py-28 md:py-40 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
@@ -253,7 +252,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Location — text + single image */}
+      {/* Location */}
       <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div
@@ -263,7 +262,7 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative aspect-[4/3] overflow-hidden rounded-sm"
           >
-            <img src="/aerial-court.jpg" alt="Aerial view of property at golden hour" className="w-full h-full object-cover" />
+            <img src="/aerial-courts.jpg" alt="Golden hour aerial of the property" className="w-full h-full object-cover" />
           </motion.div>
           <div>
             <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">The Location</p>
@@ -289,7 +288,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials — text only */}
+      {/* Testimonials */}
       <section className="py-28 md:py-40 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
           <p className="text-muted-foreground tracking-[0.2em] uppercase text-xs mb-4">Guestbook</p>
@@ -319,7 +318,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Carousel — horizontal drag, this is where ALL photos live */}
+      {/* Gallery Carousel */}
       <section className="py-20 border-t border-border">
         <div className="px-6 md:px-12 mb-10 flex justify-between items-end">
           <div>
