@@ -43,10 +43,12 @@ export default function Home() {
 
   const galleryImages = [
     { src: "/aerial-dusk.jpg", alt: "Dusk aerial view over Cuyamaca Lake and the mountains" },
-    { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
-    { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
-    { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/record-fireplace.jpg", alt: "Vinyl and wine by the fireplace" },
+    { src: "/side-deck.jpg", alt: "Side deck at golden hour with mountain vista" },
+    { src: "/dining-room.jpg", alt: "Dining nook with antler chandelier and mountain views" },
+    { src: "/dog-wine.jpg", alt: "Relaxing on the swing with wine and mountain views" },
+    { src: "/game-room.jpg", alt: "Game room with leather sofa, dartboard, and air hockey" },
+    { src: "/deck-hottub.jpg", alt: "The full property at sunset — decks, hottub, and mountain backdrop" },
     { src: "/swing-dawn.jpg", alt: "Porch swing at dawn overlooking the layered mountains" },
     { src: "/aerial-wide.jpg", alt: "Wide aerial showing full property at sunset" },
     { src: "/evening-lake.jpg", alt: "Twilight aerial with Cuyamaca Lake in the distance" },
